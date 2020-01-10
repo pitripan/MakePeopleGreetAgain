@@ -1,0 +1,26 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+[Added, Changed, Deprecated, Removed, Fixed, Security]
+
+
+## [1.0.2] - 2019-##-##
+### Fixed
+- interface options "profiles" name
+
+
+## [1.0.1] - 2019-10-22
+### Added
+- checkbox to show/hide minimap button
+- locales for minimap checkbox
+- slash commands "/mpga" and "/makepeoplegreetagain" for showing interface options
+### Changed
+- three digit versioning
+### Fixed
+- wrong object name
+- overlaying interface options
+
+
+## [1.0.0] - 2019-10-19
+### Added
+- First release

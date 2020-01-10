@@ -1,0 +1,23 @@
+## Interface: 80205
+## Title: Make people greet again
+## Version: 1.0.1
+## Author: PitriPan
+## Notes: This addon adds a command window for social interactions.
+## Notes-deDE: Dieses Addon zeigt dir ein extra Schaltflächen-Fenster für soziale Interaktion.
+## DefaultState: enabled
+## SavedVariables: MakePeopleGreetAgainDB
+## OptionalDeps: Ace3, LibDBIcon-1.0
+## X-Date: 2019-10-22T09:20:00Z
+## X-Website: https://www.curseforge.com/wow/addons/make-people-greet-again
+## X-License: GNU General Public License v3
+## X-Category: Chat & Communication, Guild, Miscellaneous
+## X-Localizations: enUS, deDE
+
+embeds.xml
+locale\enUS.lua
+locale\deDE.lua
+core\colors.lua
+core\defaults.lua
+MakePeopleGreetAgain.lua
+MakePeopleGreetAgain.xml
+core\config.lua

@@ -1,0 +1,132 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+  <!-- START FONTS -->
+  <Font name="MakePeopleGreetAgain_DisplayListFont" font="Interface\AddOns\MakePeopleGreetAgain\media\fonts\francois.TTF" virtual="true">
+    <Color r="1.0" g="0.82" b="0"/>
+		<Shadow>
+			<Offset>
+				<AbsDimension x="1" y="-1"/>
+			</Offset>
+			<Color r="0" g="0" b="0"/>
+		</Shadow>
+		<FontHeight>
+			<AbsValue val="12"/>
+		</FontHeight>
+	</Font>
+  <!-- END FONTS -->
+
+  <!-- START TEMPLATES -->
+  <Button name="MakePeopleGreetAgain_DefaultButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
+    <Size x="100" y="24" />
+    <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background-Dark" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+      <BackgroundInsets>
+        <AbsInset left="1" right="2" top="2" bottom="1"/>
+      </BackgroundInsets>
+      <TileSize>
+        <AbsValue val="24"/>
+      </TileSize>
+      <EdgeSize>
+        <AbsValue val="24"/>
+      </EdgeSize>
+    </Backdrop>
+    <Scripts>
+      <OnEnter function="MakePeopleGreetAgain_Button_OnEnter"/>
+      <OnLeave function="MakePeopleGreetAgain_Button_OnLeave"/>
+    </Scripts>
+  </Button>
+  <Button name="MakePeopleGreetAgain_DefaultIconButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
+    <Size x="32" y="32" />
+    <Scripts>
+      <OnEnter function="MakePeopleGreetAgain_Button_OnEnter"/>
+      <OnLeave function="MakePeopleGreetAgain_Button_OnLeave"/>
+    </Scripts>
+  </Button>
+
+  <Texture name="MPGA_UIPanelButtonUpTexture" urgency="5" file="Interface\Buttons\UI-Panel-Button-Disabled" virtual="true">
+    <TexCoords left="0" right="0.625" top="0" bottom="0.6875"/>
+  </Texture>
+	<Texture name="MPGA_UIPanelButtonDownTexture" file="Interface\Buttons\UI-Panel-Button-Disabled-Down" virtual="true">
+		<TexCoords left="0" right="0.625" top="0" bottom="0.6875"/>
+	</Texture>
+	<Texture name="MPGA_UIPanelButtonHighlightTexture" file="Interface\Buttons\UI-Panel-Button-Highlight2" alphaMode="ADD" virtual="true">
+		<TexCoords left="0" right="0.625" top="0" bottom="0.6875"/>
+	</Texture>
+	<Button name="MPGA_UIPanelButtonTemplate" virtual="true">
+    <Size x="48" y="24" />
+		<ButtonText name="$parentText"/>
+		<NormalFont style="MakePeopleGreetAgain_DisplayListFont"/>
+		<HighlightFont style="GameFontHighlight"/>
+		<DisabledFont style="GameFontDisable"/>
+		<NormalTexture inherits="MPGA_UIPanelButtonUpTexture"/>
+		<PushedTexture inherits="MPGA_UIPanelButtonDownTexture"/>
+		<DisabledTexture inherits="MPGA_UIPanelButtonUpTexture"/>
+		<HighlightTexture inherits="MPGA_UIPanelButtonHighlightTexture"/>
+    <Scripts>
+      <OnEnter function="MakePeopleGreetAgain_Button_OnEnter"/>
+      <OnLeave function="MakePeopleGreetAgain_Button_OnLeave"/>
+    </Scripts>
+	</Button>
+
+  <!-- END TEMPLATES -->
+
+  <Frame name="MakePeopleGreetAgain" parent="UIParent" hidden="false" enableMouse="true" movable="true" toplevel="true" clampedToScreen="true">
+    <Size x="224" y="96" />
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER" relativeTo="UIParent" />
+    </Anchors>
+    <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background-Dark" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+      <BackgroundInsets>
+        <AbsInset left="11" right="12" top="12" bottom="11"/>
+      </BackgroundInsets>
+      <TileSize>
+        <AbsValue val="32"/>
+      </TileSize>
+      <EdgeSize>
+        <AbsValue val="32"/>
+      </EdgeSize>
+    </Backdrop>
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString name="$parent_Title" parentKey="title" inherits="MakePeopleGreetAgain_DisplayListFont" justifyH="CENTER" text="Make people greet again!">
+          <Anchors>
+            <Anchor point="TOP">
+              <Offset x="0" y="-16"/>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+      <Layer level="OVERLAY">
+        <Texture name="$parent_TopRightCorner" file="Interface\DialogFrame\UI-DialogBox-Corner">
+          <Size>
+            <AbsDimension x="32" y="32" />
+          </Size>
+          <Anchors>
+            <Anchor point="TOPRIGHT">
+              <Offset>
+                <AbsDimension x="-6" y="-7" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button name="$parent_Close" parentKey="close" inherits="UIPanelCloseButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT">
+            <Offset x="-3" y="-3"/>
+          </Anchor>
+        </Anchors>
+      </Button>
+    </Frames>
+    <Scripts>
+      <OnLoad function="MakePeopleGreetAgain_OnLoad" />
+      <OnEvent function="MakePeopleGreetAgain_OnEvent"/>
+      <OnDragStart>
+        self:StartMoving();
+      </OnDragStart>
+      <OnDragStop>
+        self:StopMovingOrSizing();
+      </OnDragStop>
+    </Scripts>
+  </Frame>
+</Ui>
