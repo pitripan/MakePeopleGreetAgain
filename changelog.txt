@@ -4,8 +4,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 [Added, Changed, Deprecated, Removed, Fixed, Security]
 
 
-## [1.0.2] - 2019-##-##
+## [1.1.0] - 2020-10-19
+### Changed
+- mainframe creation from XML to Lua
 ### Fixed
+- backdrop with patch 9.0.1
 - interface options "profiles" name
 
 

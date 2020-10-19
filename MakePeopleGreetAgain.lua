@@ -108,10 +108,48 @@ function MPGAAddon_SetupPopupDialogs()
   }
 end
 
-function MPGAAddon_SetupGUI()
+function MPGAAddon_SetupMainFrame()
+  MakePeopleGreetAgain = _G["MakePeopleGreetAgain"] or CreateFrame("Frame", "MakePeopleGreetAgain", UIParent, "BackdropTemplate")
+  MakePeopleGreetAgain:SetBackdrop({
+    bgFile = "Interface/DialogFrame/UI-DialogBox-Background-Dark",
+    edgeFile = "Interface/DialogFrame/UI-DialogBox-Border",
+    tile = true,
+    tileSize = 32,
+    edgeSize = 32,
+    insets = { left = 11, right = 12, top = 12, bottom = 11 }
+  });
+  MakePeopleGreetAgain:SetWidth(224)
+  MakePeopleGreetAgain:SetHeight(96)
+  MakePeopleGreetAgain:SetToplevel(true)
+  MakePeopleGreetAgain:SetPoint("CENTER", "UIParent", "CENTER")
+  MakePeopleGreetAgain:SetClampedToScreen(true)
+  MakePeopleGreetAgain:EnableMouse(true)
+  MakePeopleGreetAgain:SetMovable(true)
+  MakePeopleGreetAgain:RegisterForDrag("LeftButton")
+  MakePeopleGreetAgain:SetScript("OnEvent", MakePeopleGreetAgain_OnEvent)
+  MakePeopleGreetAgain:SetScript("OnDragStart", MakePeopleGreetAgain.StartMoving)
+  MakePeopleGreetAgain:SetScript("OnDragStop", MakePeopleGreetAgain.StopMovingOrSizing)
+  -- MakePeopleGreetAgain:RegisterEvent("ADDON_LOADED")
+  MakePeopleGreetAgain:RegisterEvent("PLAYER_LOGIN")
+  -- title fontstring
+  MakePeopleGreetAgain.title = MakePeopleGreetAgain:CreateFontString("MakePeopleGreetAgain_Title", "OVERLAY", "MakePeopleGreetAgain_DisplayListFont")
+  MakePeopleGreetAgain.title:SetPoint("TOP", 0, -16)
+  MakePeopleGreetAgain.title:SetText("Make people greet again!")
+  -- close button
+  MakePeopleGreetAgain.close = CreateFrame("Button","MakePeopleGreetAgain_Close", MakePeopleGreetAgain, "UIPanelCloseButton")
+  MakePeopleGreetAgain.close:SetPoint("TOPRIGHT", -3, -3)
+
+  -- show MainFrame  
+  MakePeopleGreetAgain:Show()
+end
+
+function MPGAAddon_SetupButtons()
   local buttonCount = 0
 
-  local buttonsFrame = CreateFrame("Frame", "MPGA_ButtonsFrame", MakePeopleGreetAgain);
+  -- set layout
+  MPGAAddon_ApplyLayout(MPGAAddon.db.profile.config.layout)
+
+  local buttonsFrame = CreateFrame("Frame", "MPGA_ButtonsFrame", MakePeopleGreetAgain)
   buttonsFrame:SetAllPoints()
 
   -- GUILD
@@ -163,6 +201,9 @@ function MPGAAddon_SetupGUI()
     buttonCount = buttonCount + 1
     addButton(buttonsFrame, "InstanceFarewell", "INSTANCE_CHAT", "i", fontInstance, buttonCount)
   end
+
+  -- show MainFrame  
+  MakePeopleGreetAgain:Show()
 end
 
 
@@ -266,16 +307,7 @@ end
 --------------------------------------------------
 -- Main Events
 --------------------------------------------------
-function MakePeopleGreetAgain_OnLoad(self) -- 1
-  self:RegisterForDrag("LeftButton");
-
-  -- register first events
-  self:RegisterEvent("ADDON_LOADED")
-
-  --MPGAAddon:Print("OnLoad done.")
-end
-
-function MPGAAddon:OnInitialize() -- 2
+function MPGAAddon:OnInitialize()
   -- register database
   self.db = LibStub("AceDB-3.0"):New("MakePeopleGreetAgainDB", _defaultConfig, true) -- by default all chars use default profile
   self.needReload = false
@@ -303,18 +335,13 @@ function MPGAAddon:OnInitialize() -- 2
   -- setup GUI popup dialogs
   MPGAAddon_SetupPopupDialogs()
 
-  --MPGAAddon:Print("OnInitialize done.")
+  -- initialize
+  MPGAAddon_SetupMainFrame()
 end
 
 function MakePeopleGreetAgain_OnEvent(self, event, ...)
-  if event == "ADDON_LOADED" and ... == "MakePeopleGreetAgain" then -- 3
-    --MPGAAddon:Print("ADDON_LOADED done.")
-
-    self:RegisterEvent("PLAYER_LOGIN")
-    self:UnregisterEvent("ADDON_LOADED")
-  elseif event == "PLAYER_LOGIN" then
+  if event == "PLAYER_LOGIN" then
     -- setup main frame
-    MPGAAddon_ApplyLayout(MPGAAddon.db.profile.config.layout)
-    MPGAAddon_SetupGUI()
+    MPGAAddon_SetupButtons()
   end
 end
